@@ -19,7 +19,7 @@ class HttpEquivStatusMiddleware(object):
     def get_http_equiv(self, content):
         soup = BeautifulSoup(content)
         matching_tags = [x for x in soup.find_all("meta") if
-                         x['http-equiv'] == "Status" and
+                         x.get('http-equiv', '').lower() == "status" and
                          len(x['content']) > 0]
         if len(matching_tags) > 0:
             status_str = matching_tags[0]['content']
